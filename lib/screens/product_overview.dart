@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 enum SigninCharacter { fill, outline }
 
 class ProductOverview extends StatefulWidget {
+  final String productName;
+  final String productImage;
+
+  ProductOverview({required this.productName, required this.productImage});
+
   @override
   State<ProductOverview> createState() => _ProductOverviewState();
 }
@@ -75,14 +80,13 @@ class _ProductOverviewState extends State<ProductOverview> {
               child: Column(
                 children: [
                   ListTile(
-                    title: Text("Veg Burger"),
+                    title: Text(widget.productName ?? ""),
                     subtitle: Text("\$2"),
                   ),
                   Container(
                     height: 250,
                     padding: EdgeInsets.all(40),
-                    child: Image.network(
-                        "https://image.similarpng.com/very-thumbnail/2020/08/Burger-sandwatch-on-transparent-background-PNG.png"),
+                    child: Image.network(widget.productImage ?? ""),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
