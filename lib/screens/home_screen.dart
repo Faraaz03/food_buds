@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/home/single_product.dart';
 import 'package:food_buds/screens/product_overview.dart';
+import 'package:food_buds/screens/drawer_side.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,123 +11,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Widget listTile({required IconData icon, required String title}) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 32,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(color: Colors.black54),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffcbcbcb),
-      drawer: Drawer(
-        child: Container(
-          color: Color(0xffd1ad17),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white54,
-                      radius: 43,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 40.0,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Welcome Guest"),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Container(
-                          height: 26.0,
-                          child: OutlineButton(
-                            onPressed: () {},
-                            child: Text("Login"),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                side: BorderSide(width: 2)),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              listTile(icon: Icons.home_outlined, title: "Home"),
-              listTile(icon: Icons.shop_outlined, title: "Review Cart"),
-              listTile(icon: Icons.person_outline, title: "My Profile"),
-              listTile(
-                  icon: Icons.notifications_outlined, title: "Notification"),
-              listTile(icon: Icons.star_outline, title: "Rating & Review"),
-              listTile(icon: Icons.favorite_outline, title: "Wishlist"),
-              listTile(icon: Icons.copy_outlined, title: "Raise a complaint"),
-              listTile(icon: Icons.format_quote_outlined, title: "FAQs"),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                height: 350,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Contact Support",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Text("Call Us:"),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "+917737039598",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Text("Mail Us"),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "info@foodbuds.com",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      drawer: DrawerSide(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
