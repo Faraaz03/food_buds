@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_buds/home/single_product.dart';
 import 'package:food_buds/screens/product_overview.dart';
 import 'package:food_buds/screens/drawer_side.dart';
+import 'package:food_buds/screens/search.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,10 +27,17 @@ class _HomeScreenState extends State<HomeScreen> {
           CircleAvatar(
             radius: 15,
             backgroundColor: Color(0xFFd4d181),
-            child: Icon(
-              Icons.search,
-              size: 17,
-              color: Colors.black,
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                size: 17,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Search()),
+                );
+              },
             ),
           ),
           Padding(
