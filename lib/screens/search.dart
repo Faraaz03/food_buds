@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_buds/screens/search_item.dart';
+import 'package:food_buds/widgets/single_item.dart';
 
 class Search extends StatelessWidget {
   const Search({Key? key}) : super(key: key);
@@ -36,7 +36,9 @@ class Search extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          SearchItem(),
+          SingleItem(
+            isBool: false,
+          ),
         ],
       ),
     );

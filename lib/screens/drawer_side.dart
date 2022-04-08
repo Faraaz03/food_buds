@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/screens/my_profile.dart';
+import 'package:food_buds/screens/review_cart.dart';
 
 class DrawerSide extends StatelessWidget {
   Widget listTile(
@@ -74,7 +75,7 @@ class DrawerSide extends StatelessWidget {
                 title: "Review Cart",
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
+                      MaterialPageRoute(builder: (context) => ReviewCart()));
                 }),
             listTile(
                 icon: Icons.person_outline,
