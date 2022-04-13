@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SingleProdcut extends StatelessWidget {
+  final String? productImage;
+  final String? productName;
+  final int? productPrice;
   final Function()? onTap;
 
-  SingleProdcut({required this.onTap});
+  SingleProdcut(
+      {this.productImage, this.productName, this.productPrice, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +30,7 @@ class SingleProdcut extends StatelessWidget {
                     height: 150,
                     padding: EdgeInsets.all(5),
                     width: double.infinity,
-                    child: Image.network(
-                        'https://image.similarpng.com/very-thumbnail/2020/08/Burger-sandwatch-on-transparent-background-PNG.png'),
+                    child: Image.network('$productImage'),
                   ),
                 ),
                 Expanded(
@@ -39,12 +42,12 @@ class SingleProdcut extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Hamburger",
+                          '$productName',
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "2\$",
+                          '$productPrice',
                           style: TextStyle(color: Colors.grey),
                         ),
                         Row(

@@ -1,9 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_buds/screens/search.dart';
 
 class SingleItem extends StatelessWidget {
   bool isBool = false;
-  SingleItem({required this.isBool});
+  String? productImage;
+  String? productName;
+  int? productPrice;
+  SingleItem(
+      {required this.isBool,
+      this.productImage,
+      this.productName,
+      this.productPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +23,7 @@ class SingleItem extends StatelessWidget {
             child: Container(
               height: 100,
               child: Center(
-                child: Image.network(
-                    "https://e7.pngegg.com/pngimages/692/669/png-clipart-big-burger-hamburger-fast-food.png"),
+                child: Image.network(productImage!),
               ),
             ),
           ),
@@ -32,12 +39,12 @@ class SingleItem extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "Product Name",
+                        productName!,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "2\$",
+                        "$productPrice\$",
                         style: TextStyle(
                           color: Colors.grey,
                         ),

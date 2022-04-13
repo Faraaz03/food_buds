@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/home/single_product.dart';
+import 'package:food_buds/providers/product_provider.dart';
 import 'package:food_buds/screens/product_overview.dart';
 import 'package:food_buds/screens/drawer_side.dart';
 import 'package:food_buds/screens/search.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,10 +14,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ProductProvider productProvider;
+
+  @override
+  void initState() {
+    ProductProvider productProvider = Provider.of(context, listen: false);
+    productProvider.fetchFoodData();
+    productProvider.fetchPizzaData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    productProvider = Provider.of(context);
     return Scaffold(
-      backgroundColor: Color(0xffcbcbcb),
+      backgroundColor: Colors.grey[200],
       drawer: DrawerSide(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -35,7 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Search()),
+                  MaterialPageRoute(
+                      builder: (context) => Search(
+                            search: productProvider.getAllProductSearch,
+                          )),
                 );
               },
             ),
@@ -139,9 +155,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Sizzling Burgers",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  Text(
-                    "View All",
-                    style: TextStyle(color: Colors.grey),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Search(
+                                search: productProvider.getFoodDataList,
+                              )));
+                    },
+                    child: Text(
+                      "View All",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   )
                 ],
               ),
@@ -149,59 +173,29 @@ class _HomeScreenState extends State<HomeScreen> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                          productName: "Veg Burger",
-                          productImage:
-                              "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg",
-                        ),
-                      ),
+                children: productProvider.getFoodDataList.map(
+                  (foodData) {
+                    return SingleProdcut(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProductOverview(
+                              productPrice: foodData.productPrice,
+                              productName: foodData.productName,
+                              productImage: foodData.productImage,
+                            ),
+                          ),
+                        );
+                      },
+                      productName: foodData.productName,
+                      productImage: foodData.productImage,
+                      productPrice: foodData.productPrice,
                     );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  })
-                ],
+                  },
+                ).toList(),
+                // children: [
+
+                // ],
               ),
             ),
             Padding(
@@ -213,9 +207,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Italin Pizzas",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  Text(
-                    "View All",
-                    style: TextStyle(color: Colors.grey),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Search(
+                                search: productProvider.getPizzaDataList,
+                              )));
+                    },
+                    child: Text(
+                      "View All",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   )
                 ],
               ),
@@ -223,58 +225,29 @@ class _HomeScreenState extends State<HomeScreen> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
+                children: productProvider.getPizzaDataList.map(
+                  (pizzaData) {
+                    return SingleProdcut(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProductOverview(
+                              productPrice: pizzaData.productPrice,
+                              productName: pizzaData.productName,
+                              productImage: pizzaData.productImage,
+                            ),
+                          ),
+                        );
+                      },
+                      productName: pizzaData.productName,
+                      productImage: pizzaData.productImage,
+                      productPrice: pizzaData.productPrice,
                     );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                  SingleProdcut(onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProductOverview(
-                            productName: "Veg Burger",
-                            productImage:
-                                "https://image.shutterstock.com/image-photo/burgers-hamburgers-cheeseburgers-on-black-260nw-542899306.jpg"),
-                      ),
-                    );
-                  }),
-                ],
+                  },
+                ).toList(),
+                // children: [
+
+                // ],
               ),
             ),
           ],
