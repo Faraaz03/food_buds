@@ -180,13 +180,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ProductOverview(
-                              productPrice: foodData.productPrice,
-                              productName: foodData.productName,
-                              productImage: foodData.productImage,
+                              productPrice: foodData.productPrice!,
+                              productName: foodData.productName!,
+                              productImage: foodData.productImage!,
                             ),
                           ),
                         );
                       },
+                      productId: foodData.productId,
                       productName: foodData.productName,
                       productImage: foodData.productImage,
                       productPrice: foodData.productPrice,
@@ -232,13 +233,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ProductOverview(
-                              productPrice: pizzaData.productPrice,
-                              productName: pizzaData.productName,
-                              productImage: pizzaData.productImage,
+                              productPrice: pizzaData.productPrice!,
+                              productName: pizzaData.productName!,
+                              productImage: pizzaData.productImage!,
                             ),
                           ),
                         );
                       },
+                      productId: pizzaData.productId,
                       productName: pizzaData.productName,
                       productImage: pizzaData.productImage,
                       productPrice: pizzaData.productPrice,

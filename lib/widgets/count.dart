@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/providers/review_cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class Count extends StatefulWidget {
-  const Count({Key? key}) : super(key: key);
+  String? productId;
+  String? productImage;
+  String? productName;
+  int? productPrice;
+
+  Count(
+      {this.productId, this.productImage, this.productName, this.productPrice});
 
   @override
   _CountState createState() => _CountState();
@@ -10,8 +18,10 @@ class Count extends StatefulWidget {
 class _CountState extends State<Count> {
   int count = 1;
   bool isTrue = false;
+
   @override
   Widget build(BuildContext context) {
+    ReviewCartProvider reviewCartProvider = Provider.of(context);
     return Container(
         height: 30.0,
         width: 50.0,
@@ -65,6 +75,13 @@ class _CountState extends State<Count> {
                     setState(() {
                       isTrue = true;
                     });
+                    reviewCartProvider.addReviewCartData(
+                      cartId: widget.productId,
+                      cartName: widget.productName,
+                      cartImage: widget.productImage,
+                      cartPrice: widget.productPrice,
+                      cartQuantity: count,
+                    );
                   },
                   child: Text(
                     "ADD",

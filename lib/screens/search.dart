@@ -16,7 +16,7 @@ class _SearchState extends State<Search> {
 
   searchItem(String query) {
     List<ProductModel> searchFood = widget.search!.where((element) {
-      return element.productName.toLowerCase().contains(query);
+      return element.productName!.toLowerCase().contains(query);
     }).toList();
     return searchFood;
   }

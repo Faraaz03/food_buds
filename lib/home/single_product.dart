@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/widgets/count.dart';
+import 'package:food_buds/widgets/count.dart';
 
 class SingleProdcut extends StatelessWidget {
   final String? productImage;
   final String? productName;
+  final String? productId;
   final int? productPrice;
   final Function()? onTap;
 
   SingleProdcut(
-      {this.productImage, this.productName, this.productPrice, this.onTap});
+      {this.productImage,
+      this.productName,
+      this.productPrice,
+      this.onTap,
+      this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +89,12 @@ class SingleProdcut extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Count(),
+                            Count(
+                              productId: productId,
+                              productImage: productImage,
+                              productPrice: productPrice,
+                              productName: productName,
+                            ),
                           ],
                         )
                       ],
