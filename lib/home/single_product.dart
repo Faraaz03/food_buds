@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/widgets/count.dart';
 
 class SingleProdcut extends StatelessWidget {
   final String? productImage;
@@ -82,37 +83,7 @@ class SingleProdcut extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Expanded(
-                              child: Container(
-                                height: 30.0,
-                                width: 50.0,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.remove,
-                                      size: 15,
-                                      color: Color(0xffd0b84c),
-                                    ),
-                                    Text(
-                                      '1',
-                                      style: TextStyle(
-                                          color: Color(0xffd0b84c),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Icon(
-                                      Icons.add,
-                                      size: 15,
-                                      color: Color(0xffd0b84c),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            Count(),
                           ],
                         )
                       ],
