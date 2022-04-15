@@ -9,6 +9,7 @@ class SingleItem extends StatelessWidget {
   int? productPrice;
   String? productId;
   int? productQuantity;
+  final void Function()? onDelete;
 
   SingleItem(
       {required this.isBool,
@@ -16,7 +17,8 @@ class SingleItem extends StatelessWidget {
       this.productName,
       this.productPrice,
       this.productId,
-      this.productQuantity});
+      this.productQuantity,
+      this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +124,13 @@ class SingleItem extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        Icon(
-                          Icons.delete,
-                          size: 30,
-                          color: Colors.black54,
+                        InkWell(
+                          onTap: onDelete,
+                          child: Icon(
+                            Icons.delete,
+                            size: 30,
+                            color: Colors.black54,
+                          ),
                         ),
                         SizedBox(
                           height: 5,
