@@ -22,7 +22,32 @@ class ReviewCartProvider with ChangeNotifier {
         "cartName": cartName,
         "cartImage": cartImage,
         "cartPrice": cartPrice,
-        "cartQuantity": cartQuantity
+        "cartQuantity": cartQuantity,
+        "isAdd": true
+      },
+    );
+  }
+
+  void updateReviewCartData({
+    String? cartId,
+    String? cartImage,
+    String? cartName,
+    int? cartQuantity,
+    int? cartPrice,
+  }) async {
+    FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart")
+        .doc(cartId)
+        .update(
+      {
+        "cartId": cartId,
+        "cartName": cartName,
+        "cartImage": cartImage,
+        "cartPrice": cartPrice,
+        "cartQuantity": cartQuantity,
+        "isAdd": true
       },
     );
   }
