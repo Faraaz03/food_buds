@@ -180,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ProductOverview(
+                              productId: foodData.productId!,
                               productPrice: foodData.productPrice!,
                               productName: foodData.productName!,
                               productImage: foodData.productImage!,
@@ -233,6 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ProductOverview(
+                              productId: pizzaData.productId!,
                               productPrice: pizzaData.productPrice!,
                               productName: pizzaData.productName!,
                               productImage: pizzaData.productImage!,

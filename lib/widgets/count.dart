@@ -65,10 +65,12 @@ class _CountState extends State<Count> {
                         });
                         reviewCartProvider
                             .reviewCartDataDelete(widget.productId);
+                      } else if (count > 1) {
+                        setState(() {
+                          count--;
+                        });
                       }
-                      setState(() {
-                        count--;
-                      });
+
                       reviewCartProvider.updateReviewCartData(
                         cartId: widget.productId,
                         cartName: widget.productName,

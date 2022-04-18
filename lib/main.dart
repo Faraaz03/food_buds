@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:food_buds/providers/product_provider.dart';
 import 'package:food_buds/providers/review_cart_provider.dart';
 import 'package:food_buds/providers/user_provider.dart';
+import 'package:food_buds/providers/wishlist_provider.dart';
 import 'package:food_buds/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'auth/sign_in.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<ReviewCartProvider>(
           create: (context) => ReviewCartProvider(),
+        ),
+        ChangeNotifierProvider<WishlistProvider>(
+          create: (context) => WishlistProvider(),
         )
       ],
       child: MaterialApp(

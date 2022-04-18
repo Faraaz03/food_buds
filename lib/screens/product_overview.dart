@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/providers/wishlist_provider.dart';
+import 'package:provider/provider.dart';
 
 enum SigninCharacter { fill, outline }
 
@@ -6,11 +8,14 @@ class ProductOverview extends StatefulWidget {
   final String productName;
   final String productImage;
   final int productPrice;
+  final String productId;
 
-  ProductOverview(
-      {required this.productName,
-      required this.productImage,
-      required this.productPrice});
+  ProductOverview({
+    required this.productName,
+    required this.productImage,
+    required this.productPrice,
+    required this.productId,
+  });
 
   @override
   State<ProductOverview> createState() => _ProductOverviewState();
@@ -24,42 +29,64 @@ class _ProductOverviewState extends State<ProductOverview> {
       required Color backgroundColor,
       required Color color,
       required String title,
-      required IconData iconData}) {
+      required IconData iconData,
+      final void Function()? onTap}) {
     return Expanded(
-        child: Container(
-      padding: EdgeInsets.all(20),
-      color: backgroundColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            iconData,
-            color: Colors.black,
-            size: 17,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            title,
-            style: TextStyle(color: color),
-          )
-        ],
+        child: GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(20),
+        color: backgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              iconData,
+              color: Colors.black,
+              size: 20,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              title,
+              style: TextStyle(color: color),
+            )
+          ],
+        ),
       ),
     ));
   }
 
+  bool wishlistBool = false;
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of(context);
+
     return Scaffold(
       bottomNavigationBar: Row(
         children: [
           bottomNavigationBar(
-              iconColor: Colors.white70,
-              backgroundColor: Colors.black,
+              iconColor: Colors.white,
+              backgroundColor: Colors.red,
               color: Colors.white70,
               title: "Add to Wishlist",
-              iconData: Icons.favorite_outline),
+              iconData: wishlistBool == true
+                  ? Icons.favorite_outline
+                  : Icons.favorite,
+              onTap: () {
+                setState(() {
+                  wishlistBool = !wishlistBool;
+                });
+                if (wishlistBool == true) {
+                  wishlistProvider.addWishlistData(
+                      wishlistId: widget.productId,
+                      wishlistName: widget.productName,
+                      wishlistImage: widget.productImage,
+                      wishlistPrice: widget.productPrice,
+                      wishlistQuantity: 2);
+                }
+              }),
           bottomNavigationBar(
               iconColor: Colors.grey,
               backgroundColor: Color(0xffd1ad17),
