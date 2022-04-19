@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_buds/providers/wishlist_provider.dart';
+import 'package:food_buds/screens/review_cart.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/count.dart';
 
 enum SigninCharacter { fill, outline }
 
@@ -72,9 +75,12 @@ class _ProductOverviewState extends State<ProductOverview> {
         .then((value) => {
               if (this.mounted)
                 {
-                  setState(() {
-                    wishlistBool = value.get("wishList");
-                  }),
+                  if (value.exists)
+                    {
+                      setState(() {
+                        wishlistBool = value.get("wishList");
+                      }),
+                    }
                 }
             });
   }
@@ -115,7 +121,14 @@ class _ProductOverviewState extends State<ProductOverview> {
               backgroundColor: Color(0xffd1ad17),
               color: Colors.black,
               title: "Go to Cart",
-              iconData: Icons.shop_outlined)
+              iconData: Icons.shop_outlined,
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ReviewCart(),
+                  ),
+                );
+              })
         ],
       ),
       appBar: AppBar(
@@ -176,28 +189,34 @@ class _ProductOverviewState extends State<ProductOverview> {
                           ],
                         ),
                         Text("\$${widget.productPrice}"),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: 17,
-                                color: Colors.black,
-                              ),
-                              Text(
-                                "ADD",
-                                style: TextStyle(color: Colors.black),
-                              )
-                            ],
-                          ),
-                        )
+                        Count(
+                          productId: widget.productId,
+                          productImage: widget.productImage,
+                          productPrice: widget.productPrice,
+                          productName: widget.productName,
+                        ),
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(
+                        //       horizontal: 30, vertical: 10),
+                        //   decoration: BoxDecoration(
+                        //     border: Border.all(color: Colors.grey),
+                        //     borderRadius: BorderRadius.circular(30),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       Icon(
+                        //         Icons.add,
+                        //         size: 17,
+                        //         color: Colors.black,
+                        //       ),
+                        //       Text(
+                        //         "ADD",
+                        //         style: TextStyle(color: Colors.black),
+                        //       )
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

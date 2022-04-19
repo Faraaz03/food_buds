@@ -3,6 +3,7 @@ import 'package:food_buds/home/single_product.dart';
 import 'package:food_buds/providers/product_provider.dart';
 import 'package:food_buds/screens/product_overview.dart';
 import 'package:food_buds/screens/drawer_side.dart';
+import 'package:food_buds/screens/review_cart.dart';
 import 'package:food_buds/screens/search.dart';
 import 'package:provider/provider.dart';
 
@@ -58,13 +59,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 7),
-            child: CircleAvatar(
-              radius: 15,
-              backgroundColor: Color(0xFFd4d181),
-              child: Icon(
-                Icons.shop,
-                size: 17,
-                color: Colors.black,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ReviewCart(),
+                  ),
+                );
+              },
+              child: CircleAvatar(
+                radius: 15,
+                backgroundColor: Color(0xFFd4d181),
+                child: Icon(
+                  Icons.shop,
+                  size: 17,
+                  color: Colors.black,
+                ),
               ),
             ),
           )
