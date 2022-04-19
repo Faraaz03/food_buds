@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/screens/my_profile.dart';
 import 'package:food_buds/screens/review_cart.dart';
+import 'package:food_buds/screens/wishlist.dart';
 
 class DrawerSide extends StatelessWidget {
   Widget listTile(
@@ -103,7 +104,7 @@ class DrawerSide extends StatelessWidget {
                 title: "Wishlist",
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
+                      MaterialPageRoute(builder: (context) => WishList()));
                 }),
             listTile(
                 icon: Icons.copy_outlined,

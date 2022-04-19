@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_buds/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
@@ -59,9 +61,28 @@ class _ProductOverviewState extends State<ProductOverview> {
   }
 
   bool wishlistBool = false;
+
+  getWishlistBool() {
+    FirebaseFirestore.instance
+        .collection("Wishlist")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourWishlist")
+        .doc(widget.productId)
+        .get()
+        .then((value) => {
+              if (this.mounted)
+                {
+                  setState(() {
+                    wishlistBool = value.get("wishList");
+                  }),
+                }
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     WishlistProvider wishlistProvider = Provider.of(context);
+    getWishlistBool();
 
     return Scaffold(
       bottomNavigationBar: Row(
@@ -85,6 +106,8 @@ class _ProductOverviewState extends State<ProductOverview> {
                       wishlistImage: widget.productImage,
                       wishlistPrice: widget.productPrice,
                       wishlistQuantity: 2);
+                } else {
+                  wishlistProvider.deleteWishList(widget.productId);
                 }
               }),
           bottomNavigationBar(

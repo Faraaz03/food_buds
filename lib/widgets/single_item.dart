@@ -6,6 +6,7 @@ class SingleItem extends StatelessWidget {
   bool isBool = false;
   String? productImage;
   String? productName;
+  bool? wishList = false;
   int? productPrice;
   String? productId;
   int? productQuantity;
@@ -18,7 +19,8 @@ class SingleItem extends StatelessWidget {
       this.productPrice,
       this.productId,
       this.productQuantity,
-      this.onDelete});
+      this.onDelete,
+      this.wishList});
 
   @override
   Widget build(BuildContext context) {
