@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/home/single_product.dart';
 import 'package:food_buds/providers/product_provider.dart';
+import 'package:food_buds/providers/user_provider.dart';
 import 'package:food_buds/screens/product_overview.dart';
 import 'package:food_buds/screens/drawer_side.dart';
 import 'package:food_buds/screens/review_cart.dart';
@@ -28,9 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     productProvider = Provider.of(context);
+    UserProvider userProvider = Provider.of(context);
+    userProvider.getUserData();
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      drawer: DrawerSide(),
+      drawer: DrawerSide(userProvider: userProvider),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(

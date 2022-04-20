@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/Models/user_model.dart';
+import 'package:food_buds/providers/user_provider.dart';
 import 'package:food_buds/screens/drawer_side.dart';
 
-class MyProfile extends StatelessWidget {
+class MyProfile extends StatefulWidget {
+  UserProvider? userProvider;
+  MyProfile({this.userProvider});
+
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
   Widget listTile({
     required IconData icon,
     required String title,
@@ -22,6 +32,7 @@ class MyProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userData = widget.userProvider?.currentUserData;
     return Scaffold(
       // backgroundColor: Color(0xFFd4d181),
       appBar: AppBar(
@@ -32,7 +43,9 @@ class MyProfile extends StatelessWidget {
           style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
-      drawer: DrawerSide(),
+      drawer: DrawerSide(
+        userProvider: widget.userProvider,
+      ),
       body: Stack(
         children: [
           Column(
@@ -67,7 +80,7 @@ class MyProfile extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Faraaz",
+                                    userData!.userName.toString(),
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
@@ -76,7 +89,7 @@ class MyProfile extends StatelessWidget {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text("faraazmfs.2001@gmail.com")
+                                  Text(userData!.userEmail.toString())
                                 ],
                               ),
                               CircleAvatar(
@@ -123,7 +136,8 @@ class MyProfile extends StatelessWidget {
               backgroundColor: Color(0xFFd4d181),
               child: CircleAvatar(
                 radius: 45,
-                backgroundColor: Colors.red,
+                backgroundImage: NetworkImage(userData!.userImage.toString() ??
+                    "https://previews.123rf.com/images/wectors/wectors1705/wectors170500066/78149699-men-face-vector-illustration-style-flat-front.jpg"),
               ),
             ),
           )

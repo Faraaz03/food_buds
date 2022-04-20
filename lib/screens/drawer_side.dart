@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/providers/user_provider.dart';
 import 'package:food_buds/screens/my_profile.dart';
 import 'package:food_buds/screens/review_cart.dart';
 import 'package:food_buds/screens/wishlist.dart';
 
-class DrawerSide extends StatelessWidget {
+class DrawerSide extends StatefulWidget {
+  UserProvider? userProvider;
+  DrawerSide({this.userProvider});
+
+  @override
+  State<DrawerSide> createState() => _DrawerSideState();
+}
+
+class _DrawerSideState extends State<DrawerSide> {
   Widget listTile(
       {required IconData icon,
       required String title,
@@ -23,45 +32,44 @@ class DrawerSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userData = widget.userProvider?.currentUserData;
+
     return Drawer(
       child: Container(
         color: Color(0xffd1ad17),
         child: ListView(
           children: [
             DrawerHeader(
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white54,
-                    radius: 43,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.red,
-                      radius: 40.0,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.white54,
+                      radius: 43,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.red,
+                        backgroundImage: NetworkImage(userData?.userImage ??
+                            "https://previews.123rf.com/images/wectors/wectors1705/wectors170500066/78149699-men-face-vector-illustration-style-flat-front.jpg"),
+                        radius: 40.0,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Welcome Guest"),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      Container(
-                        height: 26.0,
-                        child: OutlineButton(
-                          onPressed: () {},
-                          child: Text("Login"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              side: BorderSide(width: 2)),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(userData!.userName.toString()),
+                        Text(
+                          userData!.userEmail.toString(),
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             listTile(
@@ -82,8 +90,10 @@ class DrawerSide extends StatelessWidget {
                 icon: Icons.person_outline,
                 title: "My Profile",
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MyProfile(
+                            userProvider: widget.userProvider,
+                          )));
                 }),
             listTile(
                 icon: Icons.notifications_outlined,
