@@ -189,23 +189,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: productProvider.getFoodDataList.map(
                   (foodData) {
                     return SingleProdcut(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ProductOverview(
-                              productId: foodData.productId!,
-                              productPrice: foodData.productPrice!,
-                              productName: foodData.productName!,
-                              productImage: foodData.productImage!,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProductOverview(
+                                productId: foodData.productId!,
+                                productPrice: foodData.productPrice!,
+                                productName: foodData.productName!,
+                                productImage: foodData.productImage!,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      productId: foodData.productId,
-                      productName: foodData.productName,
-                      productImage: foodData.productImage,
-                      productPrice: foodData.productPrice,
-                    );
+                          );
+                        },
+                        productId: foodData.productId,
+                        productName: foodData.productName,
+                        productImage: foodData.productImage,
+                        productPrice: foodData.productPrice,
+                        productUnit: foodData);
                   },
                 ).toList(),
                 // children: [
@@ -259,6 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       productName: pizzaData.productName,
                       productImage: pizzaData.productImage,
                       productPrice: pizzaData.productPrice,
+                      productUnit: pizzaData,
                     );
                   },
                 ).toList(),

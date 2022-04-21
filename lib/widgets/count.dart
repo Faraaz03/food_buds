@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_buds/Models/product_model.dart';
 import 'package:food_buds/providers/review_cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,9 +10,14 @@ class Count extends StatefulWidget {
   String? productImage;
   String? productName;
   int? productPrice;
+  var productUnit;
 
   Count(
-      {this.productId, this.productImage, this.productName, this.productPrice});
+      {this.productId,
+      this.productImage,
+      this.productName,
+      this.productPrice,
+      this.productUnit});
 
   @override
   _CountState createState() => _CountState();
@@ -118,12 +124,12 @@ class _CountState extends State<Count> {
                       isTrue = true;
                     });
                     reviewCartProvider.addReviewCartData(
-                      cartId: widget.productId,
-                      cartName: widget.productName,
-                      cartImage: widget.productImage,
-                      cartPrice: widget.productPrice,
-                      cartQuantity: count,
-                    );
+                        cartId: widget.productId,
+                        cartName: widget.productName,
+                        cartImage: widget.productImage,
+                        cartPrice: widget.productPrice,
+                        cartQuantity: count,
+                        cartUnit: widget.productUnit);
                   },
                   child: Text(
                     "ADD",

@@ -16,6 +16,7 @@ class SingleItem extends StatefulWidget {
   String? productId;
   int? productQuantity;
   final void Function()? onDelete;
+  var productUnit;
 
   SingleItem(
       {required this.isBool,
@@ -25,7 +26,8 @@ class SingleItem extends StatefulWidget {
       this.productId,
       this.productQuantity,
       this.onDelete,
-      this.wishList});
+      this.wishList,
+      this.productUnit});
 
   @override
   State<SingleItem> createState() => _SingleItemState();
@@ -148,7 +150,7 @@ class _SingleItemState extends State<SingleItem> {
                             ),
                           ),
                         )
-                      : Text("2")
+                      : Text(widget.productUnit)
                 ],
               ),
             ),
