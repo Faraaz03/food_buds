@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/Models/review_cart_model.dart';
 import 'package:food_buds/providers/review_cart_provider.dart';
+import 'package:food_buds/screens/delivery_details.dart';
 import 'package:food_buds/widgets/single_item.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +57,13 @@ class ReviewCart extends StatelessWidget {
         trailing: Container(
           width: 160,
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DeliveryDetails(),
+                ),
+              );
+            },
             child: Text("Submit"),
             color: Colors.yellow,
             shape:
