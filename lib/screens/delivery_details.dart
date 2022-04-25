@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/screens/add_delivery_address.dart';
 import 'package:food_buds/screens/single_delivery_item.dart';
 
 class DeliveryDetails extends StatelessWidget {
@@ -22,7 +23,13 @@ class DeliveryDetails extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: MaterialButton(
           child: Text("Add New Address"),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AddDeliveryAddress(),
+              ),
+            );
+          },
           color: Colors.yellow,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
