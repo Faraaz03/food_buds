@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/screens/add_delivery_address.dart';
+import 'package:food_buds/screens/payment_summary.dart';
 import 'package:food_buds/screens/single_delivery_item.dart';
 
 class DeliveryDetails extends StatelessWidget {
+  List<Widget> address = [
+    SingleDeliveryItem(
+      address: "Jhansi",
+      title: "Faraaz",
+      number: "+91-9329417837",
+      addressType: "Home",
+    )
+  ];
+
+  bool isAddress = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +33,21 @@ class DeliveryDetails extends StatelessWidget {
         height: 48,
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: MaterialButton(
-          child: Text("Add New Address"),
+          child: address.isEmpty
+              ? Text("Add New Address")
+              : Text("Payment Summary"),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => AddDeliveryAddress(),
-              ),
-            );
+            address.isEmpty
+                ? Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AddDeliveryAddress(),
+                    ),
+                  )
+                : Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => PaymentSummary(),
+                    ),
+                  );
           },
           color: Colors.yellow,
           shape:
@@ -49,12 +68,14 @@ class DeliveryDetails extends StatelessWidget {
           ),
           Column(
             children: [
-              SingleDeliveryItem(
-                address: "Jhansi",
-                title: "Faraaz",
-                number: "+91-9329417837",
-                addressType: "Home",
-              )
+              address.isEmpty
+                  ? Container()
+                  : SingleDeliveryItem(
+                      address: "Jhansi",
+                      title: "Faraaz",
+                      number: "+91-9329417837",
+                      addressType: "Home",
+                    )
             ],
           )
         ],
