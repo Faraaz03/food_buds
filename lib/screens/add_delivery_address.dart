@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/providers/check_out_provider.dart';
+import 'package:food_buds/screens/google_map.dart';
 import 'package:food_buds/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
@@ -88,7 +89,10 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
               controller: checkoutProvider.pincode,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CustomGoogleMap()));
+              },
               child: Container(
                 height: 47,
                 width: double.infinity,
