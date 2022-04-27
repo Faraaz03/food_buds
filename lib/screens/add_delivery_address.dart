@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/providers/check_out_provider.dart';
 import 'package:food_buds/widgets/custom_text_field.dart';
+import 'package:provider/provider.dart';
 
 class AddDeliveryAddress extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
   var myType = AddressType.Home;
   @override
   Widget build(BuildContext context) {
+    CheckoutProvider checkoutProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
@@ -21,53 +24,68 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
         ),
       ),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        height: 48,
-        child: MaterialButton(
-          onPressed: () {},
-          child: Text(
-            "Add Address",
-            style: TextStyle(color: Colors.black),
-          ),
-          color: Colors.yellow,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-      ),
+          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          height: 48,
+          child: checkoutProvider == false
+              ? MaterialButton(
+                  onPressed: () {
+                    checkoutProvider.validator(context, myType);
+                  },
+                  child: Text(
+                    "Add Address",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  color: Colors.yellow,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                )),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
             CustomTextField(
               labText: "First Name",
+              controller: checkoutProvider.firstName,
             ),
             CustomTextField(
               labText: "Last Name",
+              controller: checkoutProvider.lastName,
             ),
             CustomTextField(
               labText: "Mobile No.",
+              controller: checkoutProvider.mobileNo,
             ),
             CustomTextField(
               labText: "Alternate Mobile No.",
+              controller: checkoutProvider.altMobileNo,
             ),
             CustomTextField(
               labText: "Society",
+              controller: checkoutProvider.society,
             ),
             CustomTextField(
               labText: "Street",
+              controller: checkoutProvider.street,
             ),
             CustomTextField(
               labText: "Landmark",
+              controller: checkoutProvider.landmark,
             ),
             CustomTextField(
               labText: "City",
+              controller: checkoutProvider.city,
             ),
             CustomTextField(
               labText: "Area",
+              controller: checkoutProvider.area,
             ),
             CustomTextField(
               labText: "Pincode",
+              controller: checkoutProvider.pincode,
             ),
             InkWell(
               onTap: () {},

@@ -27,7 +27,13 @@ class DeliveryDetails extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.yellow,
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddDeliveryAddress(),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: Container(
         height: 48,
