@@ -27,23 +27,19 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
       bottomNavigationBar: Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           height: 48,
-          child: checkoutProvider == false
-              ? MaterialButton(
-                  onPressed: () {
-                    checkoutProvider.validator(context, myType);
-                  },
-                  child: Text(
-                    "Add Address",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  color: Colors.yellow,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                )),
+          child: MaterialButton(
+            onPressed: () {
+              checkoutProvider.validator(context, myType);
+            },
+            child: Text(
+              "Add Address",
+              style: TextStyle(color: Colors.black),
+            ),
+            color: Colors.yellow,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          )),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
@@ -99,7 +95,11 @@ class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text("Set Location")],
+                  children: [
+                    checkoutProvider.setLocation == null
+                        ? Text("Set Location")
+                        : Text("Done")
+                  ],
                 ),
               ),
             ),

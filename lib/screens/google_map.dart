@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/providers/check_out_provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 class CustomGoogleMap extends StatefulWidget {
   @override
@@ -26,6 +28,7 @@ class _GoogleMapState extends State<CustomGoogleMap> {
 
   @override
   Widget build(BuildContext context) {
+    CheckoutProvider checkoutProvider = Provider.of(context);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -50,7 +53,14 @@ class _GoogleMapState extends State<CustomGoogleMap> {
                   margin:
                       EdgeInsets.only(right: 60, left: 10, bottom: 40, top: 40),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await _location.getLocation().then((value) {
+                        setState(() {
+                          checkoutProvider.setLocation = value;
+                        });
+                      });
+                      Navigator.of(context).pop();
+                    },
                     color: Colors.yellow,
                     child: Text("Set Location"),
                     shape: StadiumBorder(),
