@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/Models/delivery_address_model.dart';
+import 'package:food_buds/providers/review_cart_provider.dart';
+import 'package:food_buds/screens/single_delivery_item.dart';
 import 'package:food_buds/widgets/order_item.dart';
+import 'package:provider/provider.dart';
 
 class PaymentSummary extends StatefulWidget {
+  final DeliveryAddressModel? deliveryAddressList;
+  PaymentSummary({this.deliveryAddressList});
+
   @override
   _PaymentSummaryState createState() => _PaymentSummaryState();
 }
@@ -13,6 +20,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
+    ReviewCartProvider reviewCartProvider = Provider.of(context);
+    reviewCartProvider.getReviewCartData();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,20 +59,27 @@ class _PaymentSummaryState extends State<PaymentSummary> {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  ListTile(
-                    title: Text("Md. Faraaz Siddiqui"),
-                    subtitle: Text("Jhansi"),
+                  SingleDeliveryItem(
+                    address:
+                        "Area: ${widget.deliveryAddressList!.area}, Street: ${widget.deliveryAddressList!.street}, Society: ${widget.deliveryAddressList!.society}, Pincode: ${widget.deliveryAddressList!.pincode}",
+                    title:
+                        "${widget.deliveryAddressList!.firstName} ${widget.deliveryAddressList!.lastName}",
+                    number: widget.deliveryAddressList!.mobileNo,
+                    addressType: widget.deliveryAddressList!.addressType ==
+                            "AddressType.Other"
+                        ? "Other"
+                        : widget.deliveryAddressList!.addressType ==
+                                "AddressType.Home"
+                            ? "Home"
+                            : "Work",
                   ),
                   Divider(),
                   ExpansionTile(
-                    children: [
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem()
-                    ],
+                    children: reviewCartProvider.getReviewCartDataList.map((e) {
+                      return OrderItem(
+                        e: e,
+                      );
+                    }).toList(),
                     title: Text("Order Item 6"),
                   ),
                   Divider(),

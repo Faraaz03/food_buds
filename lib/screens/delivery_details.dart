@@ -6,8 +6,15 @@ import 'package:food_buds/screens/payment_summary.dart';
 import 'package:food_buds/screens/single_delivery_item.dart';
 import 'package:provider/provider.dart';
 
-class DeliveryDetails extends StatelessWidget {
+class DeliveryDetails extends StatefulWidget {
+  @override
+  State<DeliveryDetails> createState() => _DeliveryDetailsState();
+}
+
+class _DeliveryDetailsState extends State<DeliveryDetails> {
   bool isAddress = false;
+  late DeliveryAddressModel value;
+
   @override
   Widget build(BuildContext context) {
     CheckoutProvider deliveryAddressProvider = Provider.of(context);
@@ -47,7 +54,9 @@ class DeliveryDetails extends StatelessWidget {
                   )
                 : Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PaymentSummary(),
+                      builder: (context) => PaymentSummary(
+                        deliveryAddressList: value,
+                      ),
                     ),
                   );
           },
@@ -77,6 +86,7 @@ class DeliveryDetails extends StatelessWidget {
               : Column(
                   children:
                       deliveryAddressProvider.getDeliveryAddressList.map((e) {
+                    value = e;
                     return SingleDeliveryItem(
                       address:
                           "Area: ${e.area}, Street: ${e.street}, Society: ${e.society}, Pincode: ${e.pincode}",
