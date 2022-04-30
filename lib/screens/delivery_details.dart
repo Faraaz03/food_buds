@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food_buds/Models/delivery_address_model.dart';
+import 'package:food_buds/providers/check_out_provider.dart';
 import 'package:food_buds/screens/add_delivery_address.dart';
 import 'package:food_buds/screens/payment_summary.dart';
 import 'package:food_buds/screens/single_delivery_item.dart';
+import 'package:provider/provider.dart';
 
 class DeliveryDetails extends StatelessWidget {
-  List<Widget> address = [
-    SingleDeliveryItem(
-      address: "Jhansi",
-      title: "Faraaz",
-      number: "+91-9329417837",
-      addressType: "Home",
-    )
-  ];
-
   bool isAddress = false;
   @override
   Widget build(BuildContext context) {
+    CheckoutProvider deliveryAddressProvider = Provider.of(context);
+    deliveryAddressProvider.getDeliveryAddressData();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,11 +35,11 @@ class DeliveryDetails extends StatelessWidget {
         height: 48,
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: MaterialButton(
-          child: address.isEmpty
+          child: deliveryAddressProvider.getDeliveryAddressList.isEmpty
               ? Text("Add New Address")
               : Text("Payment Summary"),
           onPressed: () {
-            address.isEmpty
+            deliveryAddressProvider.getDeliveryAddressList.isEmpty
                 ? Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => AddDeliveryAddress(),
@@ -72,18 +68,28 @@ class DeliveryDetails extends StatelessWidget {
           Divider(
             height: 1,
           ),
-          Column(
-            children: [
-              address.isEmpty
-                  ? Container()
-                  : SingleDeliveryItem(
-                      address: "Jhansi",
-                      title: "Faraaz",
-                      number: "+91-9329417837",
-                      addressType: "Home",
-                    )
-            ],
-          )
+          deliveryAddressProvider.getDeliveryAddressList.isEmpty
+              ? Container(
+                  child: Center(
+                    child: Text("No Data"),
+                  ),
+                )
+              : Column(
+                  children:
+                      deliveryAddressProvider.getDeliveryAddressList.map((e) {
+                    return SingleDeliveryItem(
+                      address:
+                          "Area: ${e.area}, Street: ${e.street}, Society: ${e.society}, Pincode: ${e.pincode}",
+                      title: "${e.firstName} ${e.lastName}",
+                      number: e.mobileNo,
+                      addressType: e.addressType == "AddressType.Other"
+                          ? "Other"
+                          : e.addressType == "AddressType.Home"
+                              ? "Home"
+                              : "Work",
+                    );
+                  }).toList(),
+                )
         ],
       ),
     );

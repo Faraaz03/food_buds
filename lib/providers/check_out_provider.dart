@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_buds/Models/delivery_address_model.dart';
 import 'package:food_buds/screens/add_delivery_address.dart';
 import 'package:location/location.dart';
 
@@ -17,7 +19,7 @@ class CheckoutProvider with ChangeNotifier {
   TextEditingController city = TextEditingController();
   TextEditingController area = TextEditingController();
   TextEditingController pincode = TextEditingController();
-  late LocationData setLocation;
+  LocationData? setLocation;
 
   void validator(context, AddressType myType) async {
     if (firstName.text.isEmpty) {
@@ -59,8 +61,8 @@ class CheckoutProvider with ChangeNotifier {
         "city": city.text,
         "area": area.text,
         "pincode": pincode.text,
-        "longitude": setLocation.longitude,
-        "latitude": setLocation.latitude,
+        "longitude": setLocation!.longitude,
+        "latitude": setLocation!.latitude,
         "addressType": myType.toString()
       }).then((value) async {
         isLoading = false;
@@ -71,5 +73,38 @@ class CheckoutProvider with ChangeNotifier {
       });
       notifyListeners();
     }
+  }
+
+  List<DeliveryAddressModel> deliveryAddressList = [];
+  getDeliveryAddressData() async {
+    List<DeliveryAddressModel> newList = [];
+    DeliveryAddressModel? deliveryAddressModel;
+    DocumentSnapshot _db = await FirebaseFirestore.instance
+        .collection("AddDeliveryAddress")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (_db.exists) {
+      deliveryAddressModel = DeliveryAddressModel(
+        firstName: _db.get("firstName"),
+        lastName: _db.get("lastName"),
+        mobileNo: _db.get("mobileNo"),
+        altMobileNo: _db.get("altMobileNo"),
+        street: _db.get("street"),
+        area: _db.get("area"),
+        society: _db.get("society"),
+        landmark: _db.get("landmark"),
+        city: _db.get("city"),
+        pincode: _db.get("pincode"),
+        addressType: _db.get("addressType"),
+      );
+      newList.add(deliveryAddressModel!);
+      notifyListeners();
+    }
+    newList = deliveryAddressList;
+    notifyListeners();
+  }
+
+  List<DeliveryAddressModel> get getDeliveryAddressList {
+    return deliveryAddressList;
   }
 }
