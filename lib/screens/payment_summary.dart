@@ -22,6 +22,17 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   Widget build(BuildContext context) {
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
+
+    double discount = 30;
+    double? discountValue;
+    double shippingCharges = 4;
+    double? total;
+    double totalPrice = reviewCartProvider.getTotalPrice();
+    if (totalPrice > 300) {
+      discountValue = (totalPrice * discount) / 100;
+      total = totalPrice - discountValue;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -33,7 +44,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
       bottomNavigationBar: ListTile(
         title: Text("Total Amount"),
         subtitle: Text(
-          "\$45",
+          "\$${total! + 5 ?? totalPrice}",
           style: TextStyle(
               color: Colors.green[900],
               fontWeight: FontWeight.bold,
@@ -80,7 +91,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                         e: e,
                       );
                     }).toList(),
-                    title: Text("Order Item 6"),
+                    title: Text(
+                        "Order Item ${reviewCartProvider.getReviewCartDataList.length}"),
                   ),
                   Divider(),
                   ListTile(
@@ -90,7 +102,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: Text(
-                      "\$270",
+                      "\$${totalPrice + 5}",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -101,7 +113,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: Text(
-                      "\$0",
+                      "\$5",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -112,7 +124,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: Text(
-                      "\$20",
+                      "\$$discountValue",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
