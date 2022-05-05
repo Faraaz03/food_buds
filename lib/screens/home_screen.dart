@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     ProductProvider initproductProvider = Provider.of(context, listen: false);
-    initproductProvider.fetchFoodData();
+    initproductProvider.fetchVegPizzaData();
     initproductProvider.fetchPizzaData();
     super.initState();
   }
@@ -165,14 +165,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Sizzling Burgers",
+                    "Veg EXTRAVAGANZA Pizzas",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Search(
-                                search: productProvider.getFoodDataList,
+                                search: productProvider.getVegPizzaDataList,
                               )));
                     },
                     child: Text(
@@ -186,26 +186,26 @@ class _HomeScreenState extends State<HomeScreen> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: productProvider.getFoodDataList.map(
-                  (foodData) {
+                children: productProvider.getVegPizzaDataList.map(
+                  (vegPizzaData) {
                     return SingleProdcut(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => ProductOverview(
-                                productId: foodData.productId!,
-                                productPrice: foodData.productPrice!,
-                                productName: foodData.productName!,
-                                productImage: foodData.productImage!,
+                                productId: vegPizzaData.productId!,
+                                productPrice: vegPizzaData.productPrice!,
+                                productName: vegPizzaData.productName!,
+                                productImage: vegPizzaData.productImage!,
                               ),
                             ),
                           );
                         },
-                        productId: foodData.productId,
-                        productName: foodData.productName,
-                        productImage: foodData.productImage,
-                        productPrice: foodData.productPrice,
-                        productUnit: foodData);
+                        productId: vegPizzaData.productId,
+                        productName: vegPizzaData.productName,
+                        productImage: vegPizzaData.productImage,
+                        productPrice: vegPizzaData.productPrice,
+                        productUnit: vegPizzaData);
                   },
                 ).toList(),
                 // children: [
@@ -219,7 +219,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Italin Pizzas",
+                    "Paneer Pizzas",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Search(
+                                search: productProvider.getPizzaDataList,
+                              )));
+                    },
+                    child: Text(
+                      "View All",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: productProvider.getPizzaDataList.map(
+                  (pizzaData) {
+                    return SingleProdcut(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProductOverview(
+                              productId: pizzaData.productId!,
+                              productPrice: pizzaData.productPrice!,
+                              productName: pizzaData.productName!,
+                              productImage: pizzaData.productImage!,
+                            ),
+                          ),
+                        );
+                      },
+                      productId: pizzaData.productId,
+                      productName: pizzaData.productName,
+                      productImage: pizzaData.productImage,
+                      productPrice: pizzaData.productPrice,
+                      productUnit: pizzaData,
+                    );
+                  },
+                ).toList(),
+                // children: [
+
+                // ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Mexican Pizzas",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
