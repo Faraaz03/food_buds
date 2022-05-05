@@ -1,4 +1,4 @@
-# food_buds
+# Food Buds
 
 A new Flutter project.
 
