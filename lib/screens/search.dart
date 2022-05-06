@@ -28,9 +28,7 @@ class _SearchState extends State<Search> {
       appBar: AppBar(
         backgroundColor: Color(0xffEB5353),
         title: Text("Search"),
-        actions: [
-          Padding(padding: EdgeInsets.all(8), child: Icon(Icons.menu_rounded))
-        ],
+        actions: [Padding(padding: EdgeInsets.all(8))],
       ),
       body: ListView(
         children: [
