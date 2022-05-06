@@ -36,7 +36,7 @@ class _MyProfileState extends State<MyProfile> {
     return Scaffold(
       // backgroundColor: Color(0xFFd4d181),
       appBar: AppBar(
-        backgroundColor: Color(0xFFd4d181),
+        backgroundColor: Color(0xFFEB5353),
         elevation: 0.0,
         title: Text(
           "My Profile",
@@ -52,7 +52,7 @@ class _MyProfileState extends State<MyProfile> {
             children: [
               Container(
                 height: 100,
-                color: Color(0xFFd4d181),
+                color: Color(0xFFEB5353),
               ),
               Container(
                 height: 510,
@@ -133,7 +133,7 @@ class _MyProfileState extends State<MyProfile> {
             padding: const EdgeInsets.only(top: 40.0, left: 30.0),
             child: CircleAvatar(
               radius: 50.0,
-              backgroundColor: Color(0xFFd4d181),
+              backgroundColor: Colors.yellow,
               child: CircleAvatar(
                 radius: 45,
                 backgroundImage: NetworkImage(userData!.userImage.toString() ??

@@ -35,20 +35,20 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.grey[200],
       drawer: DrawerSide(userProvider: userProvider),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           "Home",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         actions: [
           CircleAvatar(
-            radius: 15,
-            backgroundColor: Color(0xFFd4d181),
+            radius: 17,
+            backgroundColor: Color(0xFFFF8080),
             child: IconButton(
               icon: Icon(
                 Icons.search,
-                size: 17,
-                color: Colors.black,
+                size: 20,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.of(context).push(
@@ -59,6 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
+          ),
+          SizedBox(
+            width: 17,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 7),
@@ -71,18 +74,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               child: CircleAvatar(
-                radius: 15,
-                backgroundColor: Color(0xFFd4d181),
+                radius: 17,
+                backgroundColor: Color(0xFFFF8080),
                 child: Icon(
                   Icons.shop,
-                  size: 17,
-                  color: Colors.black,
+                  size: 20,
+                  color: Colors.white,
                 ),
               ),
             ),
           )
         ],
-        backgroundColor: Color(0xFFd6b738),
+        backgroundColor: Color(0xFFEB5353),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -274,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Mexican Pizzas",
+                    "Non-Veg Pizzas",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(

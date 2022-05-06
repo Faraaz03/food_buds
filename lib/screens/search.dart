@@ -26,7 +26,7 @@ class _SearchState extends State<Search> {
     List<ProductModel> _searchItem = searchItem(query);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffd4d181),
+        backgroundColor: Color(0xffEB5353),
         title: Text("Search"),
         actions: [
           Padding(padding: EdgeInsets.all(8), child: Icon(Icons.menu_rounded))

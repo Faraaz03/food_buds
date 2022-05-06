@@ -79,6 +79,7 @@ class ReviewCart extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
+        backgroundColor: Color(0xFFEB5353),
         title: Text(
           "Review Cart",
           style: TextStyle(fontSize: 18, color: Colors.black),

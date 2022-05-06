@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_buds/providers/user_provider.dart';
+import 'package:food_buds/screens/home_screen.dart';
 import 'package:food_buds/screens/my_profile.dart';
 import 'package:food_buds/screens/review_cart.dart';
 import 'package:food_buds/screens/wishlist.dart';
@@ -36,7 +37,7 @@ class _DrawerSideState extends State<DrawerSide> {
 
     return Drawer(
       child: Container(
-        color: Color(0xffd1ad17),
+        color: Color(0xffF9D923),
         child: ListView(
           children: [
             DrawerHeader(
@@ -77,7 +78,7 @@ class _DrawerSideState extends State<DrawerSide> {
                 title: "Home",
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 }),
             listTile(
                 icon: Icons.shop_outlined,
@@ -99,15 +100,16 @@ class _DrawerSideState extends State<DrawerSide> {
                 icon: Icons.notifications_outlined,
                 title: "Notification",
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          MyProfile(userProvider: widget.userProvider)));
                 }),
             listTile(
                 icon: Icons.star_outline,
                 title: "Rating & Review",
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 }),
             listTile(
                 icon: Icons.favorite_outline,
@@ -116,20 +118,20 @@ class _DrawerSideState extends State<DrawerSide> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => WishList()));
                 }),
-            listTile(
-                icon: Icons.copy_outlined,
-                title: "Raise a complaint",
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
-                }),
-            listTile(
-                icon: Icons.format_quote_outlined,
-                title: "FAQs",
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MyProfile()));
-                }),
+            // listTile(
+            //     icon: Icons.copy_outlined,
+            //     title: "Raise a complaint",
+            //     onTap: () {
+            //       Navigator.of(context).push(
+            //           MaterialPageRoute(builder: (context) => MyProfile()));
+            //     }),
+            // listTile(
+            //     icon: Icons.format_quote_outlined,
+            //     title: "FAQs",
+            //     onTap: () {
+            //       Navigator.of(context).push(
+            //           MaterialPageRoute(builder: (context) => MyProfile()));
+            //     }),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               height: 350,

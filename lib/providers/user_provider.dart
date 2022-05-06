@@ -23,7 +23,7 @@ class UserProvider with ChangeNotifier {
     );
   }
 
-  late UserModel currentData;
+  late UserModel? currentData;
 
   void getUserData() async {
     UserModel userModel;
@@ -44,6 +44,6 @@ class UserProvider with ChangeNotifier {
   }
 
   UserModel get currentUserData {
-    return currentData;
+    return currentData!;
   }
 }

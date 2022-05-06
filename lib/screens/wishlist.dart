@@ -12,7 +12,7 @@ class WishList extends StatefulWidget {
 }
 
 class _WishListState extends State<WishList> {
-  late WishlistProvider wishlistProvider;
+  late WishlistProvider? wishlistProvider;
   showAlertDialog(BuildContext context, ProductModel delete) {
     // set up the buttons
     Widget cancelButton = TextButton(
@@ -24,7 +24,7 @@ class _WishListState extends State<WishList> {
     Widget continueButton = TextButton(
       child: Text("Yes"),
       onPressed: () {
-        wishlistProvider.deleteWishList(delete.productId);
+        wishlistProvider?.deleteWishList(delete.productId);
         Navigator.of(context).pop();
       },
     );
@@ -51,18 +51,19 @@ class _WishListState extends State<WishList> {
   @override
   Widget build(BuildContext context) {
     wishlistProvider = Provider.of(context);
-    wishlistProvider.getWishlistData();
+    wishlistProvider?.getWishlistData();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xffEB5353),
         title: Text(
           "WishList",
-          style: TextStyle(fontSize: 18, color: Colors.black),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
       body: ListView.builder(
-        itemCount: wishlistProvider.getWishList.length,
+        itemCount: wishlistProvider?.getWishList.length,
         itemBuilder: (context, index) {
-          ProductModel data = wishlistProvider.getWishList[index];
+          ProductModel data = wishlistProvider!.getWishList[index];
           return Column(
             children: [
               SizedBox(
